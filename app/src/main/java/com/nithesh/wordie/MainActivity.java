@@ -1,16 +1,21 @@
 package com.nithesh.wordie;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,15 +57,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton floatingActionButton = findViewById(R.id.floatingActionButton);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addWordIntent = new Intent(MainActivity.this, AddNewWordActivity.class);
-                startActivity(addWordIntent);
-            }
-        });
         attachReadEventListener();
+        Toolbar myToolBar = findViewById(R.id.mainActivityToolbar);
+        setSupportActionBar(myToolBar);
+        setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
     }
 
     private void attachReadEventListener() {
@@ -107,4 +107,27 @@ public class MainActivity extends AppCompatActivity {
         startActivity(detailIntent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (databaseReference != null) {
+            databaseReference.removeEventListener(childEventListener);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.searchmenu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+        SearchView searchView = (SearchView) menu.findItem(R.id.searchAction).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
 }

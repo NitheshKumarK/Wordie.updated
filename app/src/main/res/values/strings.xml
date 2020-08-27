@@ -2,11 +2,13 @@
     <string name="app_name">Wordie</string>
     <string name="AddNewWordActivityName">Add New Word</string>
     <string name="word_textView">Word</string>
-    <string name="word_editText_hint">Enter a word...</string>
+    <string name="word_editText_hint">Enter a word…</string>
     <string name="posTextView">P.O.S</string>
     <string name="meaningTextView">Meaning</string>
-    <string name="enter_the_meaning">Enter the meaning...</string>
+    <string name="enter_the_meaning">Enter the meaning…</string>
     <string name="save_menu">Save</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Search word…</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>

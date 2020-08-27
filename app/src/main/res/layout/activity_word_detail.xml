@@ -6,8 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#9EF5FD"
-    android:padding="16dp"
     tools:context=".WordDetail">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/detailActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp" />
 
     <TextView
         android:id="@+id/wordDetailWordTextView"
@@ -15,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/detailActivityToolbar"
         android:layout_marginStart="8dp"
         android:layout_marginTop="32dp"
         android:text="@string/word_textView" />
@@ -46,6 +52,7 @@
         style="@style/word_textview_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/detailActivityToolbar"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
