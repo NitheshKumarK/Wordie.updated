@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String WORD_KEY_WORD = "actual word key";
     public static final String WORD_KEY_POS = "actual pos key";
     public static final String WORD_KEY_MEANING = "actual meaning key";
+    private SearchView searchView;
 
 
     @Override
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://wordie-16168.firebaseio.com/");
         databaseReference = firebaseDatabase.getReference("words");
 
-        ArrayList<Word> wordArrayList = new ArrayList<>();
+        final ArrayList<Word> wordArrayList = new ArrayList<>();
         wordList = findViewById(R.id.wordList);
         wordAdapter = new WordAdapter(this, R.layout.word_layout, wordArrayList);
         wordList.setAdapter(wordAdapter);
@@ -122,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         SearchView searchView = (SearchView) menu.findItem(R.id.searchAction).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
         return true;
     }
 

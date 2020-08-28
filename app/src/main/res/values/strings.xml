@@ -9,6 +9,7 @@
     <string name="save_menu">Save</string>
     <string name="search">Search</string>
     <string name="search_hint">Search word…</string>
+    <string name="text">request text</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>
