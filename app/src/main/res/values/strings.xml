@@ -10,6 +10,8 @@
     <string name="search">Search</string>
     <string name="search_hint">Search word…</string>
     <string name="text">request text</string>
+    <string name="empty_list_view">empty list view</string>
+    <string name="currently_you_have_no_words_in_your_list">Currently, you have no words in your list</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>

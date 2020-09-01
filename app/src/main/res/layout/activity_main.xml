@@ -9,7 +9,6 @@
         android:id="@+id/mainActivityToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
         android:elevation="4dp" />
 
     <ListView
@@ -20,5 +19,34 @@
         android:background="@android:color/white"
         tools:listitem="@layout/word_layout" />
 
+    <RelativeLayout
+        android:id="@+id/empty_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mainActivityToolbar"
+        android:background="@android:color/white"
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/empty_list_view"
+            android:maxHeight="200dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/broke" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:text="@string/currently_you_have_no_words_in_your_list"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
 
 </RelativeLayout>

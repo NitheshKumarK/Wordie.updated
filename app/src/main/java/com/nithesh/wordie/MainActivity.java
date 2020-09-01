@@ -30,14 +30,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        ListView wordList = findViewById(R.id.wordList);
+        ListView wordListView = findViewById(R.id.wordList);
+        WordAdapter wordAdapter = new WordAdapter(this, wordArrayList);
+
+        wordListView.setEmptyView(findViewById(R.id.empty_view));
+        wordListView.setAdapter(wordAdapter);
         //WordAdapter wordAdapter = new WordAdapter(this, R.layout.word_layout, wordArrayList);
-        //wordList.setAdapter(wordAdapter);
-        wordList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //wordListView.setAdapter(wordAdapter);
+
+
+        wordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Word word = (Word) parent.getItemAtPosition(position);
-                sendToDetailActivity(word);
+
+
             }
         });
 

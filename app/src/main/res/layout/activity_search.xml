@@ -4,10 +4,23 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
     tools:context=".SearchActivity">
 
    <ListView
        android:id="@+id/requestListView"
        android:layout_width="match_parent"
-       android:layout_height="match_parent" />
+       android:layout_height="match_parent"
+       android:background="@color/colorPrimaryDark"
+       tools:listitem="@layout/word_layout" />
+
+   <ProgressBar
+       android:id="@+id/progressBar"
+       style="?android:attr/progressBarStyleLarge"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       android:elevation="8dp" />
 </RelativeLayout>

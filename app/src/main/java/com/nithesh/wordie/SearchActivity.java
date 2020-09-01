@@ -4,7 +4,9 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,20 +18,26 @@ import androidx.loader.content.Loader;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Word>> {
+
     private static ArrayList<Word> searchResultWordList = null;
     private static String searchQueryWord;
     private Intent intent;
     private ListView requestListView;
     private WordAdapter wordAdapter;
+    private static ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         requestListView = findViewById(R.id.requestListView);
+        progressBar = findViewById(R.id.progressBar);
+
         intent = getIntent();
         searchQueryWord = intent.getStringExtra(SearchManager.QUERY);
         getSupportLoaderManager().initLoader(0, null, this).forceLoad();
+
+
     }
 
     @Override
@@ -46,8 +54,10 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoadFinished(@NonNull Loader<ArrayList<Word>> loader, ArrayList<Word> data) {
+        progressBar.setVisibility(View.GONE);
         wordAdapter = new WordAdapter(SearchActivity.this, data);
         requestListView.setAdapter(wordAdapter);
+
     }
 
     @Override
@@ -92,6 +102,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         protected void onStartLoading() {
             super.onStartLoading();
             forceLoad();
+            progressBar.setVisibility(View.VISIBLE);
         }
     }
 }
