@@ -1,16 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/word_item_background"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/word_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/word_item_background"
         android:padding="16dp"
         android:textSize="18sp"
         android:textColor="@android:color/black"
         tools:text="Word" />
-</RelativeLayout>
+
+    <TextView
+        android:id="@+id/shortDef_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="16sp"
+        tools:text="short def" />
+
+</LinearLayout>

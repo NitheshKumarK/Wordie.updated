@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import java.util.List;
 
 public class WordAdapter extends ArrayAdapter<Word> {
-    public WordAdapter(@NonNull Context context, int resource, @NonNull List<Word> objects) {
+    public WordAdapter(@NonNull Context context, @NonNull List<Word> objects) {
         super(context, 0, objects);
     }
 
@@ -26,7 +26,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
     }
         Word word = getItem(position);
         TextView wordTextView = wordView.findViewById(R.id.word_textView);
+        TextView shortDefTextView = wordView.findViewById(R.id.shortDef_textView);
         wordTextView.setText(word.getWord());
+        shortDefTextView.setText(word.getDefinition());
         return wordView;
     }
 }
