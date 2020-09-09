@@ -3,7 +3,7 @@
     <string name="AddNewWordActivityName">Add New Word</string>
     <string name="word_textView">Word</string>
     <string name="word_editText_hint">Enter a word…</string>
-    <string name="posTextView">P.O.S</string>
+    <string name="posTextView">functional label</string>
     <string name="meaningTextView">Meaning</string>
     <string name="enter_the_meaning">Enter the meaning…</string>
     <string name="save_menu">Save</string>
@@ -12,6 +12,8 @@
     <string name="text">request text</string>
     <string name="empty_list_view">empty list view</string>
     <string name="currently_you_have_no_words_in_your_list">Currently, you have no words in your list</string>
+    <string name="actual_word_play_button">actual word play button</string>
+    <string name="definition_textView_text">Definition :</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>

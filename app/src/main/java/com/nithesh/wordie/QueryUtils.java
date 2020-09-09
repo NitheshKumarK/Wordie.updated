@@ -106,13 +106,20 @@ public class QueryUtils {
 
                 JSONArray wordsArray = new JSONArray(jsonResponse);
                 for (int i = 0; i < wordsArray.length(); i++) {
+                    String soundId = "";
                     JSONObject insideWord = wordsArray.optJSONObject(i);
                     String pos = insideWord.getString("fl");
                     JSONObject hwi = insideWord.optJSONObject("hwi");
+                    JSONArray prs = hwi.optJSONArray("prs");
+                    if (prs != null) {
+                        JSONObject prsObject = prs.optJSONObject(0);
+                        JSONObject sound = prsObject.optJSONObject("sound");
+                        soundId = sound.getString("audio");
+                    }
                     String hw = hwi.getString("hw");
                     JSONArray definitionArray = insideWord.optJSONArray("shortdef");
                     String firstDefinition = definitionArray.getString(0);
-                    wordArrayList.add(new Word(hw, pos, firstDefinition));
+                    wordArrayList.add(new Word(hw, pos, firstDefinition,soundId));
                 }
             }
         } catch (Exception e) {

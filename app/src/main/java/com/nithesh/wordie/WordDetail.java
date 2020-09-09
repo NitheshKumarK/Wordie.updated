@@ -3,33 +3,36 @@ package com.nithesh.wordie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 public class WordDetail extends AppCompatActivity {
+    private TextView wordTextView;
+    private TextView posTextView;
+    private TextView definitionTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_detail);
+        wordTextView = findViewById(R.id.actualWordTextView);
+        posTextView = findViewById(R.id.actualPosTextView);
+        definitionTextView = findViewById(R.id.actualDefinitionTextView);
 
-        Toolbar toolbar = findViewById(R.id.detailActivityToolbar);
-        setSupportActionBar(toolbar);
-
-        TextView actualWordTextView = findViewById(R.id.actualWordTextView);
-        TextView actualPosTextView = findViewById(R.id.actualPosTextView);
-        TextView actualMeaningTextView = findViewById(R.id.actualMeaningTextView);
 
         Intent receiveIntent = getIntent();
-        String actualWord = receiveIntent.getStringExtra(MainActivity.WORD_KEY_WORD);
-        String actualPos = receiveIntent.getStringExtra(MainActivity.WORD_KEY_POS);
-        String actualMeaning = receiveIntent.getStringExtra(MainActivity.WORD_KEY_MEANING);
-
-        actualWordTextView.setText(actualWord.trim());
-        actualPosTextView.setText(actualPos.trim());
-        actualMeaningTextView.setText(actualMeaning.trim());
+        Bundle bundle = receiveIntent.getBundleExtra(SearchActivity.BUNDLE_KEY);
+        if (bundle!=null) {
+            Word word = (Word) bundle.getSerializable(SearchActivity.WORD_OBJECT_KEY);
+            if (word != null){
+                wordTextView.append(word.getWord());
+                posTextView.append(word.getPos());
+                definitionTextView.append(word.getDefinition());
+        }
+        }
 
     }
 }

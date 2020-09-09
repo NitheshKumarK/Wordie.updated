@@ -5,89 +5,68 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9EF5FD"
+    android:background="#FFFFFF"
     tools:context=".WordDetail">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/detailActivityToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary"
-        android:elevation="4dp" />
-
-    <TextView
-        android:id="@+id/wordDetailWordTextView"
-        style="@style/word_textview_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/detailActivityToolbar"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/word_textView" />
-
-    <TextView
-        android:id="@+id/wordDetailPosTextView"
-        style="@style/pos_textView_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wordDetailWordTextView"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/posTextView" />
-
-
-    <TextView
-        android:id="@+id/wordDetailMeaningTextView"
-        style="@style/meaning_textView_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wordDetailPosTextView"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/meaningTextView" />
 
     <TextView
         android:id="@+id/actualWordTextView"
-        style="@style/word_textview_style"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detailActivityToolbar"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_toEndOf="@id/wordDetailWordTextView"
-        android:textStyle="normal"
-        tools:text="actual word"
-        app:drawableEndCompat="@drawable/ic_baseline_play" />
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textSize="22sp"
+        android:textColor="@android:color/black"
+        android:text="" />
 
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/speaker"
+        android:contentDescription="@string/actual_word_play_button"
+        android:layout_toEndOf="@id/actualWordTextView"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:layout_marginStart="16dp"
+        />
 
     <TextView
         android:id="@+id/actualPosTextView"
-        style="@style/word_textview_style"
         android:layout_width="wrap_content"
         android:layout_height="32dp"
         android:layout_below="@id/actualWordTextView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_toEndOf="@id/wordDetailPosTextView"
+        android:layout_marginStart="16dp"
+        android:textSize="18sp"
+        android:layout_marginTop="8dp"
         android:textStyle="normal"
-
-        tools:text="actual pos" />
+        android:textColor="@android:color/black"
+        android:text="" />
 
     <TextView
-        android:id="@+id/actualMeaningTextView"
-        style="@style/word_textview_style"
+        android:id="@+id/definitionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/actualPosTextView"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_toEndOf="@id/wordDetailMeaningTextView"
-        android:textStyle="normal"
-        tools:text="and this " />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:text="@string/definition_textView_text" />
+    <TextView
+        android:id="@+id/actualDefinitionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/definitionTextView"
+        android:layout_marginStart="32dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="24dp"
+        android:textSize="20sp"
+        android:text=""
+        android:textColor="@android:color/black"
+        />
 
 
 </RelativeLayout>

@@ -28,12 +28,13 @@
         <activity
             android:name=".WordDetail"
             android:label="Word Detail"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".SearchActivity" />
 
 
         <activity
             android:name=".SearchActivity"
             android:launchMode="singleTop"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

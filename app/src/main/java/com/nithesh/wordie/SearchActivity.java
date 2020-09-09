@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -15,6 +16,7 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Word>> {
@@ -25,6 +27,8 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     private ListView requestListView;
     private WordAdapter wordAdapter;
     private static ProgressBar progressBar;
+    public static final String WORD_OBJECT_KEY = "key for the word object";
+    public static final String  BUNDLE_KEY = "key for the bundle";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,17 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         searchQueryWord = intent.getStringExtra(SearchManager.QUERY);
         getSupportLoaderManager().initLoader(0, null, this).forceLoad();
 
+        requestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Word selectedWord =(Word) parent.getItemAtPosition(position);
+                Intent intent = new Intent(SearchActivity.this,WordDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(WORD_OBJECT_KEY, (Serializable) selectedWord);
+                intent.putExtra(BUNDLE_KEY,bundle);
+                startActivity(intent);
+            }
+        });
 
     }
 
