@@ -10,13 +10,24 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:elevation="4dp" />
-
+   <ProgressBar
+       android:id="@+id/progress_bar"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+       android:layout_centerVertical="true"
+       style="@style/Widget.AppCompat.ProgressBar"
+       android:elevation="8dp"
+       />
     <ListView
         android:id="@+id/wordList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/mainActivityToolbar"
         android:background="@android:color/white"
+        android:divider="@android:color/black"
+        android:dividerHeight="1px"
+        android:footerDividersEnabled="true"
         tools:listitem="@layout/word_layout" />
 
     <RelativeLayout
@@ -25,7 +36,9 @@
         android:layout_height="match_parent"
         android:layout_below="@id/mainActivityToolbar"
         android:background="@android:color/white"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+        android:visibility="gone"
+        >
 
         <ImageView
             android:id="@+id/imageView"

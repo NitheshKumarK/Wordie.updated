@@ -18,19 +18,22 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
         android:textStyle="bold"
-        android:textSize="22sp"
+        android:textSize="24sp"
         android:textColor="@android:color/black"
         android:text="" />
 
-    <ImageView
+    <ImageButton
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/speaker"
+        android:background="@drawable/speaker"
+        android:scaleType="center"
         android:contentDescription="@string/actual_word_play_button"
         android:layout_toEndOf="@id/actualWordTextView"
         android:layout_alignParentTop="true"
         android:layout_marginTop="22dp"
         android:layout_marginStart="16dp"
+        style="@style/Widget.AppCompat.ImageButton"
+
         />
 
     <TextView
@@ -39,10 +42,10 @@
         android:layout_height="32dp"
         android:layout_below="@id/actualWordTextView"
         android:layout_marginStart="16dp"
-        android:textSize="18sp"
-        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        android:layout_marginTop="4dp"
         android:textStyle="normal"
-        android:textColor="@android:color/black"
+
         android:text="" />
 
     <TextView
@@ -51,9 +54,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/actualPosTextView"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="22sp"
         android:text="@string/definition_textView_text" />
     <TextView
         android:id="@+id/actualDefinitionTextView"
@@ -62,11 +65,10 @@
         android:layout_below="@id/definitionTextView"
         android:layout_marginStart="32dp"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:textSize="20sp"
         android:text=""
         android:textColor="@android:color/black"
         />
-
 
 </RelativeLayout>

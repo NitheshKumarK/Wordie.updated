@@ -23,7 +23,6 @@ public class QueryUtils {
 
     public static ArrayList<Word> getWord(String searchWord) {
         String jsonResponse = "";
-
         try {
             jsonResponse = makeHttpRequest(searchWord);
 
@@ -107,6 +106,7 @@ public class QueryUtils {
                 JSONArray wordsArray = new JSONArray(jsonResponse);
                 for (int i = 0; i < wordsArray.length(); i++) {
                     String soundId = "";
+                    String shortDefs = "";
                     JSONObject insideWord = wordsArray.optJSONObject(i);
                     String pos = insideWord.getString("fl");
                     JSONObject hwi = insideWord.optJSONObject("hwi");
@@ -118,8 +118,11 @@ public class QueryUtils {
                     }
                     String hw = hwi.getString("hw");
                     JSONArray definitionArray = insideWord.optJSONArray("shortdef");
+                    if(definitionArray!=null){
+                    shortDefs = definitionArray.toString();
+                    }
                     String firstDefinition = definitionArray.getString(0);
-                    wordArrayList.add(new Word(hw, pos, firstDefinition,soundId));
+                    wordArrayList.add(new Word(hw, pos, firstDefinition,soundId,shortDefs));
                 }
             }
         } catch (Exception e) {

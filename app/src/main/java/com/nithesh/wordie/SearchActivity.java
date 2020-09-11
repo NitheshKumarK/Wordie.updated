@@ -89,9 +89,12 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     protected void onStop() {
         super.onStop();
+        if(searchResultWordList!=null) {
+            wordAdapter.clear();
+            wordAdapter.notifyDataSetChanged();
+        }
         searchResultWordList = null;
-        wordAdapter.clear();
-        wordAdapter.notifyDataSetChanged();
+
     }
 
     public static class WordLoader extends AsyncTaskLoader<ArrayList<Word>> {
