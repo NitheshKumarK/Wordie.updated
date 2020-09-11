@@ -16,7 +16,6 @@ import androidx.loader.app.LoaderManager;
 import androidx.loader.content.AsyncTaskLoader;
 import androidx.loader.content.Loader;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<Word>> {
@@ -47,8 +46,8 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
                 Word selectedWord =(Word) parent.getItemAtPosition(position);
                 Intent intent = new Intent(SearchActivity.this,WordDetail.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable(WORD_OBJECT_KEY, (Serializable) selectedWord);
-                intent.putExtra(BUNDLE_KEY,bundle);
+                bundle.putSerializable(WORD_OBJECT_KEY, selectedWord);
+                intent.putExtra(BUNDLE_KEY, bundle);
                 startActivity(intent);
             }
         });
@@ -72,9 +71,13 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         progressBar.setVisibility(View.GONE);
         wordAdapter = new WordAdapter(SearchActivity.this, data);
         requestListView.setAdapter(wordAdapter);
-
+        if (data.isEmpty()) {
+            View emptyView = findViewById(R.id.search_empty_view);
+            emptyView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
+            requestListView.setEmptyView(emptyView);
+        }
     }
-
     @Override
     public void onLoaderReset(@NonNull Loader<ArrayList<Word>> loader) {
         //clear the list in here
@@ -82,8 +85,6 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
         searchResultWordList = null;
         wordAdapter.clear();
         wordAdapter.notifyDataSetChanged();
-
-
     }
 
     @Override
