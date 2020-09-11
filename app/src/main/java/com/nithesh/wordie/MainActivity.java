@@ -2,12 +2,14 @@ package com.nithesh.wordie;
 
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
@@ -23,7 +25,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,8 +63,19 @@ public class MainActivity extends AppCompatActivity {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("words-collection").child(UUID_USERS);
         attachChildEventListener();
-    }
 
+        wordListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Word word = (Word) parent.getItemAtPosition(position);
+                Intent intent = new Intent(MainActivity.this,WordDetail.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable(SearchActivity.WORD_OBJECT_KEY, word);
+                intent.putExtra(SearchActivity.BUNDLE_KEY,bundle);
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
