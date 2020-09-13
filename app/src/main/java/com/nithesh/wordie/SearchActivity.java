@@ -27,7 +27,8 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
     private WordAdapter wordAdapter;
     private static ProgressBar progressBar;
     public static final String WORD_OBJECT_KEY = "key for the word object";
-    public static final String  BUNDLE_KEY = "key for the bundle";
+    public static final String BUNDLE_KEY = "key for the bundle";
+    public static final String SHOW_SAVE_MENU = "show save menu";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity implements LoaderManager.L
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Word selectedWord =(Word) parent.getItemAtPosition(position);
                 Intent intent = new Intent(SearchActivity.this,WordDetail.class);
+                intent.putExtra(SearchActivity.SHOW_SAVE_MENU, true);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(WORD_OBJECT_KEY, selectedWord);
                 intent.putExtra(BUNDLE_KEY, bundle);

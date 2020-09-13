@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private WordAdapter wordAdapter;
     private  ProgressBar progressBar;
     private ListView wordListView;
+    public static final String SHOW_DELETE_MENU = "show delete menu";
 
     @SuppressLint("HardwareIds")
     @Override
@@ -69,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Word word = (Word) parent.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this,WordDetail.class);
+                intent.putExtra(SHOW_DELETE_MENU, true);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(SearchActivity.WORD_OBJECT_KEY, word);
                 intent.putExtra(SearchActivity.BUNDLE_KEY,bundle);
                 startActivity(intent);
             }
         });
+
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -85,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         searchView.setIconified(false);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
 
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -115,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                     Word word = snapshot.getValue(Word.class);
+                    word.setWordReference(snapshot.getKey());
                     wordAdapter.add(word);
                     progressBar.setVisibility(View.GONE);
                 }
@@ -126,7 +131,10 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
+                    Toast.makeText(MainActivity.this, snapshot.getValue(Word.class).getWord(), Toast.LENGTH_LONG).show();
+                    wordAdapter.remove(snapshot.getValue(Word.class));
+                    wordAdapter.notifyDataSetChanged();
+                    wordListView.refreshDrawableState();
                 }
 
                 @Override
@@ -185,4 +193,5 @@ public class MainActivity extends AppCompatActivity {
             valueEventListener = null;
         }
     }
+
 }

@@ -42,7 +42,7 @@
           android:contentDescription="@string/empty_list_view"
           android:maxHeight="200dp"
           android:scaleType="centerInside"
-          android:src="@drawable/broke" />
+          android:src="@drawable/mistake" />
 
       <TextView
           android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
           android:layout_below="@id/imageView"
           android:layout_centerHorizontal="true"
           android:layout_marginTop="16dp"
-          android:text="@string/currently_you_have_no_words_in_your_list"
+          android:text="@string/please_check_spelling_or_enter_valid_word"
           android:textColor="@android:color/black" />
    </RelativeLayout>
 

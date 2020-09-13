@@ -14,6 +14,8 @@
     <string name="currently_you_have_no_words_in_your_list">Currently, you have no words in your list</string>
     <string name="actual_word_play_button">actual word play button</string>
     <string name="definition_textView_text">Definition :</string>
+    <string name="please_check_spelling_or_enter_valid_word">Please check spelling or enter valid word</string>
+    <string name="delete">Delete</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>
