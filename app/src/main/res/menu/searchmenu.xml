@@ -7,5 +7,9 @@
         android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />
+    <item
+        android:id="@+id/signIn"
+        android:title="@string/sign_out"
+        app:showAsAction="never" />
 
 </menu>

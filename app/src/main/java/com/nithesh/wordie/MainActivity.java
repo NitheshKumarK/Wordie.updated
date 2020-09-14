@@ -13,13 +13,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,19 +30,24 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    public static ArrayList<Word> wordArrayList ;
+    private static final int RC_SIGN_IN = 1;
     private DatabaseReference databaseReference;
     private ChildEventListener childEventListener;
     private ValueEventListener valueEventListener;
     public static String UUID_USERS;
-    private WordAdapter wordAdapter;
-    private  ProgressBar progressBar;
+    public static ArrayList<Word> wordArrayList;
+    public WordAdapter wordAdapter;
     private ListView wordListView;
+    private ProgressBar progressBar;
     public static final String SHOW_DELETE_MENU = "show delete menu";
+    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth.AuthStateListener authStateListener;
 
     @SuppressLint("HardwareIds")
     @Override
@@ -48,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        progressBar  = findViewById(R.id.progress_bar);
+        progressBar = findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
 
         wordArrayList = new ArrayList<>();
@@ -61,8 +68,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolBar);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-         UUID_USERS = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
+        UUID_USERS = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
+        firebaseAuth = FirebaseAuth.getInstance();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("words-collection").child(UUID_USERS);
         attachChildEventListener();
@@ -71,16 +79,51 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Word word = (Word) parent.getItemAtPosition(position);
-                Intent intent = new Intent(MainActivity.this,WordDetail.class);
+                Intent intent = new Intent(MainActivity.this, WordDetail.class);
                 intent.putExtra(SHOW_DELETE_MENU, true);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable(SearchActivity.WORD_OBJECT_KEY, word);
-                intent.putExtra(SearchActivity.BUNDLE_KEY,bundle);
+                intent.putExtra(SearchActivity.BUNDLE_KEY, bundle);
                 startActivity(intent);
             }
         });
 
+        authStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                List<AuthUI.IdpConfig> provider = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(), new AuthUI.IdpConfig.GoogleBuilder().build());
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    onSignedIn();
+                } else {
+                    onSignedOut();
+                    startActivityForResult(AuthUI
+                            .getInstance()
+                            .createSignInIntentBuilder()
+                            .setIsSmartLockEnabled(true)
+                            .setTheme(R.style.LogInTheme)
+                            .setLogo(R.drawable.book)
+                            .setAvailableProviders(provider).build(), RC_SIGN_IN);
+                }
+            }
+        };
+
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (resultCode == RESULT_OK) {
+                //user should navigate to sign in screen
+            }
+            if (resultCode == RESULT_CANCELED) {
+                finish();
+            }
+
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
@@ -110,11 +153,15 @@ public class MainActivity extends AppCompatActivity {
         if (R.id.searchAction == item.getItemId()) {
             return true;
         }
+        if (R.id.signIn == item.getItemId()) {
+            AuthUI.getInstance().signOut(this);
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 
-    private void attachChildEventListener(){
-        if(childEventListener == null){
+    private void attachChildEventListener() {
+        if (childEventListener == null) {
             childEventListener = new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -131,10 +178,8 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                    Toast.makeText(MainActivity.this, snapshot.getValue(Word.class).getWord(), Toast.LENGTH_LONG).show();
                     wordAdapter.remove(snapshot.getValue(Word.class));
                     wordAdapter.notifyDataSetChanged();
-                    wordListView.refreshDrawableState();
                 }
 
                 @Override
@@ -149,13 +194,12 @@ public class MainActivity extends AppCompatActivity {
             };
             databaseReference.addChildEventListener(childEventListener);
 
-
         }
-        if(valueEventListener == null){
+        if (valueEventListener == null) {
             valueEventListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(!snapshot.hasChildren()){
+                    if (!snapshot.hasChildren()) {
                         View emptyView = findViewById(R.id.empty_view);
                         progressBar.setVisibility(View.GONE);
                         emptyView.setVisibility(View.VISIBLE);
@@ -176,22 +220,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        firebaseAuth.addAuthStateListener(authStateListener);
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+        firebaseAuth.removeAuthStateListener(authStateListener);
         detachChildEventListener();
         wordAdapter.clear();
         progressBar.setVisibility(View.GONE);
     }
 
-    private void detachChildEventListener(){
-        if(childEventListener != null){
+
+    private void detachChildEventListener() {
+        if (childEventListener != null) {
             databaseReference.removeEventListener(childEventListener);
             childEventListener = null;
         }
-        if (valueEventListener != null){
+        if (valueEventListener != null) {
             databaseReference.removeEventListener(valueEventListener);
             valueEventListener = null;
         }
+    }
+
+    private void onSignedIn() {
+        attachChildEventListener();
+    }
+
+    private void onSignedOut() {
+        wordAdapter.clear();
+        detachChildEventListener();
     }
 
 }

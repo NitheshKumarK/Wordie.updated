@@ -16,6 +16,7 @@
     <string name="definition_textView_text">Definition :</string>
     <string name="please_check_spelling_or_enter_valid_word">Please check spelling or enter valid word</string>
     <string name="delete">Delete</string>
+    <string name="sign_out">sign out</string>
     <string-array name="spinner_items">
         <item>Noun</item>
         <item>Verb</item>

@@ -18,10 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONArray;
 
 public class WordDetail extends AppCompatActivity {
-    private TextView wordTextView;
-    private TextView posTextView;
     private TextView definitionTextView;
-    private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private Word word = null;
     private Boolean saveMenuVisibility = false;
@@ -32,8 +29,8 @@ public class WordDetail extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_detail);
-        wordTextView = findViewById(R.id.actualWordTextView);
-        posTextView = findViewById(R.id.actualPosTextView);
+        TextView wordTextView = findViewById(R.id.actualWordTextView);
+        TextView posTextView = findViewById(R.id.actualPosTextView);
         definitionTextView = findViewById(R.id.actualDefinitionTextView);
 
 
@@ -50,7 +47,7 @@ public class WordDetail extends AppCompatActivity {
             }
         }
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("words-collection").child(MainActivity.UUID_USERS);
 
     }
