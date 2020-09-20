@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
@@ -23,18 +22,18 @@
         android:text="" />
 
     <ImageButton
+        android:id="@+id/soundImageButton"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:background="@drawable/speaker"
-        android:scaleType="center"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/actual_word_play_button"
         android:layout_toEndOf="@id/actualWordTextView"
         android:layout_alignParentTop="true"
         android:layout_marginTop="22dp"
         android:layout_marginStart="16dp"
-        style="@style/Widget.AppCompat.ImageButton"
-
-        />
+        android:src="@drawable/ripple" />
 
     <TextView
         android:id="@+id/actualPosTextView"
