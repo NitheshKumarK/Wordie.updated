@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class QueryUtils {
     private static String BASE_QUERY_URL = "https://www.dictionaryapi.com/api/v3/references/sd4/json/";
-    private static String BASE_QUERY_KEY = "?key=0937209e-ae98-4f4f-81ac-c2c9b9316c01";
+    private static String BASE_QUERY_KEY = "";
     private static ArrayList<Word> wordArrayList = new ArrayList<>();
 
 
